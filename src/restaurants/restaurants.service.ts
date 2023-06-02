@@ -6,9 +6,15 @@ import * as path from "path";
 //* READ restaurant data
 export const readAllRestaurants = (req: Request, res: Response) => {
   try {
+    // Restaurants에서 빈 object인 것을 찾아서 삭제한다.
+
+    const filteredRestaurants: RestaurantType[] = Restaurants.filter(
+      (restaurant) => Object.keys(restaurant).length !== 0
+    );
+
     res.status(200).send({
       success: true,
-      data: Restaurants,
+      data: filteredRestaurants,
     });
   } catch (error: unknown) {
     if (error instanceof Error) {
